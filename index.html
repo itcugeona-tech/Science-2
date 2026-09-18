@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Copernican Revolution</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Times New Roman", serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.7) 1px, transparent 2px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.6) 1px, transparent 2px),
+        linear-gradient(135deg, #120d20, #25152f, #0e0a18);
+    background-size: 160px 160px, 220px 220px, cover;
+    color: #f8edf8;
+    overflow: hidden;
+}
+
+/* MAIN SCREEN */
+
+.website {
+    width: 100vw;
+    height: 100vh;
+    padding: 2.5vh 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diagram {
+    width: 94vw;
+    height: 92vh;
+    max-width: 1500px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(36, 20, 48, 0.94),
+            rgba(24, 15, 34, 0.97)
+        );
+
+    border: 1px solid rgba(239, 210, 157, 0.35);
+    border-radius: 25px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.5),
+        inset 0 0 50px rgba(255,255,255,0.02);
+
+    overflow: hidden;
+}
+
+/* HEADER */
+
+.header {
+    height: 17%;
+    text-align: center;
+    padding-top: 2.5vh;
+}
+
+.label {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.75rem;
+    color: #d8bfe2;
+}
+
+.title {
+    margin: 8px 0 3px;
+
+    font-size: clamp(2.1rem, 4vw, 4.3rem);
+    line-height: 0.95;
+
+    color: #ffe9a9;
+
+    text-shadow:
+        0 0 20px rgba(255, 221, 151, 0.18);
+}
+
+.subtitle {
+    margin: 8px auto 0;
+    max-width: 850px;
+
+    font-size: clamp(0.8rem, 1.2vw, 1.05rem);
+    line-height: 1.4;
+
+    color: #d8cbdc;
+}
+
+/* MAIN DIAGRAM */
+
+.main-diagram {
+    height: 67%;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 28% 44% 28%;
+    align-items: center;
+
+    padding: 0 2.5%;
+}
+
+/* SIDE CARDS */
+
+.side-card {
+    height: 82%;
+
+    padding: 25px;
+
+    background: rgba(255,255,255,0.045);
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow:
+        inset 0 0 25px rgba(255,255,255,0.02);
+}
+
+.side-card h2 {
+    margin: 0 0 10px;
+
+    font-size: clamp(1.15rem, 1.7vw, 1.7rem);
+
+    color: #ffe4a2;
+}
+
+.side-card .number {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #bfa7ca;
+}
+
+.side-card p {
+    font-size: clamp(0.75rem, 1vw, 0.95rem);
+    line-height: 1.5;
+    color: #ddd1df;
+}
+
+.side-card strong {
+    color: #fff0c4;
+}
+
+/* GEOCENTRIC / HELIOCENTRIC MINI DIAGRAM */
+
+.mini-universe {
+    width: 190px;
+    height: 190px;
+
+    margin: 10px auto;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orbit {
+    position: absolute;
+
+    border: 1px solid rgba(238,215,170,0.35);
+
+    border-radius: 50%;
+}
+
+.orbit.one {
+    width: 75px;
+    height: 75px;
+}
+
+.orbit.two {
+    width: 125px;
+    height: 125px;
+}
+
+.orbit.three {
+    width: 175px;
+    height: 175px;
+}
+
+.center {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+
+    font-size: 1.5rem;
+}
+
+.earth {
+    background: radial-gradient(
+        circle at 30% 30%,
+        #8ac5ff,
+        #27599b
+    );
+
+    box-shadow: 0 0 25px rgba(91,163,255,0.35);
+}
+
+.sun {
+    background: radial-gradient(
+        circle at 30% 30%,
+        #fff6b4,
+        #ffb632,
+        #cf6b18
+    );
+
+    box-shadow: 0 0 35px rgba(255,185,53,0.5);
+}
+
+.dot {
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #d9b9df;
+}
+
+.dot.a {
+    top: 5px;
+    left: 90px;
+}
+
+.dot.b {
+    right: 10px;
+    top: 85px;
+}
+
+.dot.c {
+    bottom: 4px;
+    left: 87px;
+}
+
+.dot.d {
+    left: 9px;
+    top: 82px;
+}
+
+/* CENTER */
+
+.center-area {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.center-area h2 {
+    margin: 0;
+
+    font-size: clamp(1.1rem, 1.6vw, 1.55rem);
+
+    color: #ffe8a6;
+
+    text-align: center;
+}
+
+.center-name {
+    margin-top: 5px;
+
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+
+    color: #cdb8d2;
+
+    text-align: center;
+}
+
+.big-orbit {
+    width: min(30vw, 410px);
+    height: min(30vw, 410px);
+
+    max-width: 410px;
+    max-height: 410px;
+
+    min-width: 260px;
+    min-height: 260px;
+
+    margin: 10px 0;
+
+    position: relative;
+
+    border: 1px solid rgba(238,215,170,0.24);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.big-orbit::before {
+    content: "";
+
+    position: absolute;
+
+    width: 75%;
+    height: 75%;
+
+    border: 1px solid rgba(238,215,170,0.20);
+
+    border-radius: 50%;
+}
+
+.big-orbit::after {
+    content: "";
+
+    position: absolute;
+
+    width: 48%;
+    height: 48%;
+
+    border: 1px solid rgba(238,215,170,0.18);
+
+    border-radius: 50%;
+}
+
+.big-sun {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            #fff9c2,
+            #ffc34d 55%,
+            #db721d
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2.3rem;
+
+    z-index: 3;
+
+    box-shadow:
+        0 0 30px rgba(255,190,62,0.6),
+        0 0 70px rgba(255,180,45,0.2);
+}
+
+/* PLANETS */
+
+.planet {
+    position: absolute;
+
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+
+    z-index: 5;
+}
+
+.planet.p1 {
+    top: 12%;
+    left: 49%;
+    background: #b9aaa0;
+}
+
+.planet.p2 {
+    right: 11%;
+    top: 48%;
+    background: #d99c62;
+}
+
+.planet.p3 {
+    bottom: 12%;
+    left: 47%;
+    background: #75aee7;
+}
+
+.planet.p4 {
+    left: 11%;
+    top: 47%;
+    background: #c66b5d;
+}
+
+/* CENTER ARROWS */
+
+.change {
+    position: absolute;
+
+    left: 50%;
+    bottom: -5px;
+
+    transform: translateX(-50%);
+
+    padding: 7px 20px;
+
+    border: 1px solid rgba(239,210,157,0.3);
+
+    border-radius: 50px;
+
+    background: #2b1835;
+
+    color: #f4d991;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+}
+
+/* COPERNICUS */
+
+.copernicus {
+    text-align: center;
+
+    margin-top: 3px;
+}
+
+.copernicus-name {
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+
+    color: #ffe6a1;
+}
+
+.copernicus-date {
+    font-size: 0.8rem;
+
+    color: #bca7c4;
+}
+
+/* BOTTOM */
+
+.bottom {
+    height: 16%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    gap: 15px;
+
+    padding: 0 3% 2%;
+}
+
+/* BOTTOM BOXES */
+
+.info-box {
+    border-top: 1px solid rgba(238,215,170,0.25);
+
+    padding: 12px 10px;
+
+    text-align: center;
+}
+
+.info-box h3 {
+    margin: 0 0 5px;
+
+    color: #ffe3a0;
+
+    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+}
+
+.info-box p {
+    margin: 0;
+
+    color: #cfc1d2;
+
+    font-size: clamp(0.65rem, 0.85vw, 0.8rem);
+
+    line-height: 1.4;
+}
+
+/* TIMELINE */
+
+.timeline {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 5px;
+}
+
+.timeline span {
+    font-size: 0.7rem;
+    color: #d2bfd7;
+}
+
+.timeline .line {
+    width: 45px;
+
+    height: 1px;
+
+    background: rgba(238,215,170,0.35);
+}
+
+/* REFERENCES */
+
+.references {
+    position: absolute;
+
+    bottom: 8px;
+    right: 20px;
+
+    font-size: 0.6rem;
+
+    color: #817184;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .website {
+        height: auto;
+        min-height: 100vh;
+        padding: 15px;
+    }
+
+    .diagram {
+        height: auto;
+        min-height: 95vh;
+    }
+
+    .header {
+        height: auto;
+        padding: 25px 15px;
+    }
+
+    .main-diagram {
+        height: auto;
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .side-card {
+        height: auto;
+    }
+
+    .center-area {
+        order: -1;
+    }
+
+    .big-orbit {
+        width: 280px;
+        height: 280px;
+    }
+
+    .bottom {
+        height: auto;
+
+        grid-template-columns: 1fr;
+
+        margin-top: 20px;
+        padding-bottom: 25px;
+    }
+
+    .references {
+        position: static;
+        text-align: center;
+        padding: 10px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="website">
+
+    <main class="diagram">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="label">
+                Intellectual Revolution
+            </div>
+
+            <h1 class="title">
+                The Copernican Revolution
+            </h1>
+
+            <p class="subtitle">
+                The transformation from an Earth-centered view of the universe
+                to a Sun-centered model of the planetary system.
+            </p>
+
+        </header>
+
+
+        <!-- MAIN VISUAL DIAGRAM -->
+
+        <section class="main-diagram">
+
+
+            <!-- LEFT SIDE -->
+
+            <article class="side-card">
+
+                <div>
+
+                    <div class="number">
+                        BEFORE COPERNICUS
+                    </div>
+
+                    <h2>
+                        Geocentric Model
+                    </h2>
+
+                    <p>
+                        The traditional astronomical model placed
+                        <strong>Earth at the center</strong>.
+                    </p>
+
+                    <p>
+                        The Sun, Moon, planets, and stars were understood
+                        to move around Earth.
+                    </p>
+
+                    <p>
+                        This view was strongly associated with the
+                        astronomical system of <strong>Ptolemy</strong>.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <div class="mini-universe">
+
+                        <div class="orbit one"></div>
+                        <div class="orbit two"></div>
+                        <div class="orbit three"></div>
+
+                        <div class="center earth">
+                            🌍
+                        </div>
+
+                        <div class="dot a"></div>
+                        <div class="dot b"></div>
+                        <div class="dot c"></div>
+                        <div class="dot d"></div>
+
+                    </div>
+
+                    <p style="text-align:center;">
+                        Earth at the center
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- CENTER -->
+
+            <div class="center-area">
+
+                <h2>
+                    A Change in the Model
+                </h2>
+
+                <div class="center-name">
+                    Nicolaus Copernicus · 1473–1543
+                </div>
+
+
+                <div class="big-orbit">
+
+                    <div class="big-sun">
+                        ☀
+                    </div>
+
+                    <div class="planet p1"></div>
+                    <div class="planet p2"></div>
+                    <div class="planet p3"></div>
+                    <div class="planet p4"></div>
+
+                    <div class="change">
+                        EARTH-CENTERED → SUN-CENTERED
+                    </div>
+
+                </div>
+
+
+                <div class="copernicus">
+
+                    <div class="copernicus-name">
+                        Nicolaus Copernicus
+                    </div>
+
+                    <div class="copernicus-date">
+                        Polish astronomer and mathematician
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <article class="side-card">
+
+                <div>
+
+                    <div class="number">
+                        COPERNICAN MODEL
+                    </div>
+
+                    <h2>
+                        Heliocentric Model
+                    </h2>
+
+                    <p>
+                        Copernicus proposed a model in which the
+                        <strong>Sun occupies the central position</strong>
+                        in the planetary system.
+                    </p>
+
+                    <p>
+                        Earth and the other planets move around the Sun.
+                    </p>
+
+                    <p>
+                        This challenged the established geocentric
+                        understanding of the cosmos.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <div class="mini-universe">
+
+                        <div class="orbit one"></div>
+                        <div class="orbit two"></div>
+                        <div class="orbit three"></div>
+
+                        <div class="center sun">
+                            ☀
+                        </div>
+
+                        <div class="dot a"></div>
+                        <div class="dot b"></div>
+                        <div class="dot c"></div>
+                        <div class="dot d"></div>
+
+                    </div>
+
+                    <p style="text-align:center;">
+                        Sun at the center
+                    </p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- BOTTOM INFORMATION -->
+
+        <section class="bottom">
+
+
+            <div class="info-box">
+
+                <h3>
+                    Why It Mattered
+                </h3>
+
+                <p>
+                    It changed how people understood Earth's position
+                    in the cosmos and contributed to the development
+                    of modern astronomy.
+                </p>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <h3>
+                    Major Work
+                </h3>
+
+                <p>
+                    <em>
+                        De revolutionibus orbium coelestium
+                    </em>
+                    was published in <strong>1543</strong>.
+                </p>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <h3>
+                    Scientific Development
+                </h3>
+
+                <div class="timeline">
+
+                    <span>
+                        Copernicus
+                    </span>
+
+                    <div class="line"></div>
+
+                    <span>
+                        Kepler
+                    </span>
+
+                    <div class="line"></div>
+
+                    <span>
+                        Galileo
+                    </span>
+
+                    <div class="line"></div>
+
+                    <span>
+                        Newton
+                    </span>
+
+                </div>
+
+                <p style="margin-top:5px;">
+                    Later developments expanded the astronomical
+                    and physical understanding of the Solar System.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- REFERENCES -->
+
+        <div class="references">
+
+            References:
+            Copernicus, N. —
+            <em>On the Revolutions of the Heavenly Spheres</em>
+            |
+            Kuhn, T. S. —
+            <em>The Copernican Revolution</em>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* Small visual animation */
+
+    const planets = document.querySelectorAll(".planet");
+
+    let angle = 0;
+
+    function animatePlanets() {
+
+        angle += 0.020;
+
+        planets.forEach((planet, index) => {
+
+            const radius =
+                115 + (index * 25);
+
+            const x =
+                Math.cos(
+                    angle + index * 1.5
+                ) * radius;
+
+            const y =
+                Math.sin(
+                    angle + index * 1.5
+                ) * radius;
+
+            planet.style.transform =
+                `translate(${x}px, ${y}px)`;
+
+        });
+
+        requestAnimationFrame(
+            animatePlanets
+        );
+    }
+
+    animatePlanets();
+
+</script>
+
+</body>
+</html>
